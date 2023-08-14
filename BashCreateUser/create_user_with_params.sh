@@ -2,7 +2,6 @@
 
 default_home="/home"
 
-# Функция, которая создает пользователя
 create_user() {
   local username="$1"
   local home_folder="${2:-${default_home}/${username}}"  # Используем значение по умолчанию, если home_folder не передан
@@ -32,7 +31,7 @@ create_user() {
     echo "SSH доступ отключен"
   fi
 }
-# Функция, которая читает имена пользователей из файла и создает пользователей
+
 readFromFileAndCreateUsers() {
   local ssh="$2"
   local is_enable="$3"
@@ -56,7 +55,6 @@ readFromFileAndCreateUsers() {
 
 
 
-# Проверка и анализ аргументов командной строки
 validate_arguments() {
   while [[ $# -gt 0 ]]; do
     case $1 in
@@ -86,14 +84,12 @@ validate_arguments() {
 
 
 # Проверка правильности аргументов
-validate_arguments "$@" # передаем аргументы из командной строки
+validate_arguments "$@"
 
 # Если передан путь к txt файлу с именами пользователей
 if [[ ! -z "$user_names_file_path" ]]; then
   readFromFileAndCreateUsers "$user_names_file_path" "$ssh_access" "$enable"
 else
-  # Если путь к файлу не передан, создаем одного пользователя
-  # Мы уже проверили валидность данных в функции validate_arguments
   create_user "$user_name" "$home_folder" "$ssh_access" "$enable"
 fi
 
