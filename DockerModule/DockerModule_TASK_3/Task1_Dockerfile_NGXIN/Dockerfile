@@ -12,4 +12,4 @@ COPY static /app/static
 
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off"]
+CMD nginx -g "daemon off;"
